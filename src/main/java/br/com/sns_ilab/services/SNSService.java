@@ -8,9 +8,9 @@ import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 
 public class SNSService {
-    private static String topicArn = "arn:aws:lambda:us-east-1:755977887883:function:grupo-5-lambda";
+    private static String topicArn = "arn:aws:sns:us-east-1:755977887883:grupo-5-sns";
 
-    public static void sendMessage(String message){
+    public static void sendMessage(String message) {
         AwsCredentialsProvider credentialsProvider = new AwsCredentialsProvider() {
             @Override
             public AwsCredentials resolveCredentials() {
@@ -19,7 +19,7 @@ public class SNSService {
                     public String accessKeyId() {
                         return System.getenv("AWS_ACCESS_KEY");
                     }
-        
+
                     @Override
                     public String secretAccessKey() {
                         return System.getenv("AWS_SECRET_KEY");
@@ -33,7 +33,6 @@ public class SNSService {
                 .credentialsProvider(credentialsProvider)
                 .build();
 
-
         PublishRequest request = PublishRequest.builder()
                 .messageStructure("Um envio de SNS")
                 .message(message)
@@ -41,9 +40,9 @@ public class SNSService {
                 .build();
 
         PublishResponse result = snsClient.publish(request);
-        
+
         System.out.println("Message sent, Status was " + result.sdkHttpResponse().statusCode());
-        
+
         snsClient.close();
     }
 }
