@@ -1,0 +1,1 @@
+java -jar ./target/sns-0.0.1-SNAPSHOT.jar
